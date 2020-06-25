@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head('About me!')">
+<head th:replace="fragments/head :: head('Nayos Blog!')">
 </head>
 
 <body>
 
 <header th:replace="fragments/navbar :: navbar"></header>
-<main class="container">
-    <div>
-        <h1>Hello, <span th:text="${userName}"> </span></h1>
+    <div class="container">
+        <div th:each="post : ${posts}">
+            <h1 th:text="${post.title}"></h1>
+            <p th:text="${post.body}"></p>
+            <p th:text="${post.id}"></p>
+
+        </div>
     </div>
 
-    <div>
-        <h4>Want to play a game?</h4>
-    </div>
-</main>
 <footer th:replace="fragments/footer :: footer"></footer>
 
 </body>
