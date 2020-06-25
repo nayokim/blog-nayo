@@ -28,7 +28,7 @@ public class PostController {
     public String onePost(@PathVariable long id, Model model){
         Post post = new Post(4,"Yesterday","Oh I believe in yesterday");
         model.addAttribute("post",post);
-        return "home/index";
+        return "blog/show";
     }
 
 
@@ -44,6 +44,14 @@ public class PostController {
         Post newPost = new Post("test 5", "test 5");
         postsDao.save(newPost);
         return "create a new ad";
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String showEditForm(Model model, @PathVariable long id){
+        //find a post
+        Post postToEdit = postsDao.getOne(id);
+        model.addAttribute("post",postToEdit);
+        return "blog/edit";
     }
 
     @PostMapping("/posts/{id}/edit")
@@ -64,19 +72,11 @@ public class PostController {
 
     }
 
-    @GetMapping("/posts/{id}/edit")
-    public String showEditForm(Model model, @PathVariable long id){
-        //find a post
-        Post postToEdit = postsDao.getOne(id);
-        model.addAttribute("post",postToEdit);
-        return "blog/edit";
-    }
-
-    @DeleteMapping("/posts/{id}/delete")
+    @PostMapping("/posts/{id}/delete")
     @ResponseBody
     public String destroy(@PathVariable long id){
         postsDao.deleteById(id);
-        return "ad deleted";
+        return "blog deleted";
     }
 
 
