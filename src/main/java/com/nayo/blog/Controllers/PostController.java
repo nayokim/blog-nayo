@@ -79,9 +79,12 @@ public class PostController {
         return "blog deleted";
     }
 
-
-
-
+    @GetMapping("/search")
+    public String search(Model model, @RequestParam (name="term") String term){
+        List <Post> posts = postsDao.searchByTitle(term);
+        model.addAttribute("posts",posts);
+        return "home/index";
+    }
 
 
 
