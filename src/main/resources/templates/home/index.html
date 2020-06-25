@@ -6,7 +6,11 @@
 <body>
 
 <header th:replace="fragments/navbar :: navbar"></header>
+
     <div class="container">
+
+        <h1>Welcome to my website!</h1>
+
         <div th:each="post : ${posts}">
             <h1 th:text="${post.title}"></h1>
             <p th:text="${post.body}"></p>
@@ -15,7 +19,7 @@
         </div>
     </div>
 
-<footer th:replace="fragments/footer :: footer"></footer>
+<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 
