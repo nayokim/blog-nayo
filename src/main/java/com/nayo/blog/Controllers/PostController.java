@@ -61,7 +61,6 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    @ResponseBody
     public String update(@PathVariable long id,
                          @RequestParam(name="title") String title,
                          @RequestParam (name ="body") String body){
@@ -74,7 +73,7 @@ public class PostController {
 
         //save changes
         postsDao.save(updatePost);
-        return "post updated";
+        return "redirect:/posts";
 
     }
 
