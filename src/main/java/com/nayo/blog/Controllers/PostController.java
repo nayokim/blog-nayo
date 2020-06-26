@@ -12,13 +12,14 @@ import java.util.List;
 @Controller
 public class PostController {
     //dependency injection
-    private PostsRepository postsDao;
+    private PostsRepository postsDao;//dao = data access object
     public PostController(PostsRepository postsRepository){
-        postsDao = postsRepository;
+        this. postsDao = postsRepository;
     }
 
     @GetMapping("/posts")
     public String showPosts(Model model){
+        //grabs a list of all the posts in the db
         List<Post> posts = postsDao.findAll();
         model.addAttribute("posts", posts);
         return "home/index";
@@ -26,24 +27,29 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String onePost(@PathVariable long id, Model model){
-        Post post = new Post(4,"Yesterday","Oh I believe in yesterday");
-        model.addAttribute("post",post);
+        Post postToView = postsDao.getOne(id);
+        //"post" is what is in the view and postToView is what is being passed
+        model.addAttribute("post",postToView);
         return "blog/show";
     }
 
 
-    @GetMapping("/posts/create")
-    @ResponseBody
-    public String viewPost(){
-        return "get";
-    }
-
     @PostMapping("/posts/create")
     @ResponseBody
+    public String viewPost(
+            //add all the parameters from the create form
+            @RequestParam(name="title") String title,
+            @RequestParam(name="body") String body){
+      Post postToAdd = new Post(title,body );
+      //save the data in the database.
+      Post postinDB = postsDao.save(postToAdd);
+      //redirect to the page. THis is mapping to the URL NOT THE VIEW (TEMPLATE)
+        return "redirect:/posts/" + postinDB.getId();
+    }
+
+    @GetMapping("/posts/create")
     public String save(){
-        Post newPost = new Post("test 5", "test 5");
-        postsDao.save(newPost);
-        return "create a new ad";
+        return "blog/create";
     }
 
     @GetMapping("/posts/{id}/edit")

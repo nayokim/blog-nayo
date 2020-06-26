@@ -22,6 +22,7 @@ public class Post {
         this.body = body;
     }
 
+    //this constructor is used with the edit post method
     public Post(long id, String title, String body) {
         this.id = id;
         this.title = title;
