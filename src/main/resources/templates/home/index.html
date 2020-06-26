@@ -14,7 +14,9 @@
 <!--        the post is the singular. Posts is plural. So each post vs all the posts-->
         <div th:each="post : ${posts}">
 <!--            post.getTitle() : this is the same as the line below. -->
+            <a th:href="${'/posts/' + post.id}">
             <h1 th:text="${post.title}"></h1>
+            </a>
             <p th:text="${post.body}"></p>
             <p th:text="${post.id}"></p>
 

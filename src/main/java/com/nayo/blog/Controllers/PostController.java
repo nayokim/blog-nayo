@@ -33,24 +33,24 @@ public class PostController {
         return "blog/show";
     }
 
-
-    @PostMapping("/posts/create")
-    @ResponseBody
-    public String viewPost(
-            //add all the parameters from the create form
-            @RequestParam(name="title") String title,
-            @RequestParam(name="body") String body){
-      Post postToAdd = new Post(title,body );
-      //save the data in the database.
-      Post postinDB = postsDao.save(postToAdd);
-      //redirect to the page. THis is mapping to the URL NOT THE VIEW (TEMPLATE)
-        return "redirect:/posts/" + postinDB.getId();
-    }
-
     @GetMapping("/posts/create")
     public String save(){
         return "blog/create";
     }
+
+    @PostMapping("/posts/create")
+    public String viewPost(
+            //add all the parameters from the create form
+            @RequestParam(name="title") String title,
+            @RequestParam(name="body") String body){
+      Post postToAdd = new Post(title,body);
+      //save the data in the database.
+      Post postinDB = postsDao.save(postToAdd);
+      //redirect to the page. THis is mapping to the URL NOT THE VIEW (TEMPLATE)
+        System.out.println(postinDB.getId());
+        return "redirect:/posts";
+    }
+
 
     @GetMapping("/posts/{id}/edit")
     public String showEditForm(Model model, @PathVariable long id){
@@ -79,10 +79,9 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/delete")
-    @ResponseBody
     public String destroy(@PathVariable long id){
         postsDao.deleteById(id);
-        return "blog deleted";
+        return "redirect:/posts";
     }
 
     @GetMapping("/search")
