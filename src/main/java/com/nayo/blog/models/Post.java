@@ -15,18 +15,24 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
-    public Post(){}
+    @Column(nullable=true)
+    private String hashTags;
 
-    public Post(String title, String body){
+    public Post(){
+    }
+
+    public Post(String title, String body, String hashTags){
         this.title = title;
         this.body = body;
+        this.hashTags = hashTags;
     }
 
     //this constructor is used with the edit post method
-    public Post(long id, String title, String body) {
+    public Post(long id, String title, String body, String hashTag) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.hashTags = hashTags;
     }
 
     public long getId() {
@@ -51,5 +57,13 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getHashTags(){
+        return hashTags;
+    }
+
+    public void setHashTags(String hashTags){
+        this.hashTags = hashTags;
     }
 }
