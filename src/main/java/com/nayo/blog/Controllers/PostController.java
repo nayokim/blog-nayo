@@ -1,7 +1,9 @@
 package com.nayo.blog.Controllers;
 
 import com.nayo.blog.dao.PostsRepository;
+import com.nayo.blog.dao.UsersRepository;
 import com.nayo.blog.models.Post;
+import com.nayo.blog.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +15,11 @@ import java.util.List;
 public class PostController {
     //dependency injection
     private PostsRepository postsDao;//dao = data access object
+    private UsersRepository usersDao;
 
-    public PostController(PostsRepository postsRepository) {
+    public PostController(PostsRepository postsRepository, UsersRepository usersDao) {
         this.postsDao = postsRepository;
+        this.usersDao = usersDao;
     }
 
     @GetMapping("/posts")
@@ -35,21 +39,17 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String save() {
+    public String showForm(Model viewModel) {
+        viewModel.addAttribute("post", new Post());
         return "blog/create";
     }
 
     @PostMapping("/posts/create")
-    public String viewPost(
-            //add all the parameters from the create form
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "body") String body,
-            @RequestParam(name = "hashtags") String hashTags) {
-        Post postToAdd = new Post(title, body, hashTags);
+    public String viewPost(@ModelAttribute Post postToBeSaved) {
+        User currentUser = usersDao.getOne(1L);
         //save the data in the database.
-        Post postinDB = postsDao.save(postToAdd);
-        //redirect to the page. THis is mapping to the URL NOT THE VIEW (TEMPLATE)
-        System.out.println(postinDB.getId());
+        postToBeSaved.setUser(currentUser);
+        Post savedPost = postsDao.save(postToBeSaved);
         return "redirect:/posts";
     }
 
@@ -63,22 +63,13 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String update(@PathVariable long id,
-                         @RequestParam(name = "title") String title,
-                         @RequestParam(name = "body") String body,
-                         @RequestParam(name = "hashtags") String hashTags) {
-        //finds post
-        Post updatePost = postsDao.getOne(id);
+    public String update(@ModelAttribute Post postToEdit) {
+        User currentUser = usersDao.getOne(1L);
+        postToEdit.setUser(currentUser);
 
-        //edit the post
-        updatePost.setTitle(title);
-        updatePost.setBody((body));
-        updatePost.setBody((hashTags));
-
-
-        //save changes
-        postsDao.save(updatePost);
-        return "redirect:/posts";
+        //save the changes
+        postsDao.save(postToEdit);// update posts set title =? where id=?
+        return "redirect:/posts/" + postToEdit.getId();
 
     }
 

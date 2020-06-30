@@ -18,6 +18,9 @@ public class Post {
     @Column(nullable=true)
     private String hashTags;
 
+    @OneToOne
+    private User user;
+
     public Post(){
     }
 
@@ -27,11 +30,19 @@ public class Post {
         this.hashTags = hashTags;
     }
 
+    public Post(String title, String body, String hashTags, User user){
+        this.title = title;
+        this.body = body;
+        this.hashTags = hashTags;
+        this.user= user;
+    }
+
     //this constructor is used with the edit post method
-    public Post(long id, String title, String body, String hashTag) {
+    public Post(long id, String title, String body, User user, String hashTag) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.user= user;
         this.hashTags = hashTags;
     }
 
@@ -65,5 +76,13 @@ public class Post {
 
     public void setHashTags(String hashTags){
         this.hashTags = hashTags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

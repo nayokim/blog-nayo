@@ -6,18 +6,18 @@
 <body>
 <header th:replace="fragments/navbar :: navbar"></header>
 <div class="container">
-    <form th:action="@{/posts/create}" th:method="POST">
+    <form th:action="@{/posts/create}" th:method="POST" th:object="${post}">
         <div class="form-group">
-            <label for="exampleFormControlInput1">Title</label>
-            <input type="text" class="form-control" name="title" id="exampleFormControlInput1">
+            <label>Title</label>
+            <input type="text" class="form-control" th:field="*{title}">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Body</label>
-            <textarea class="form-control" name="body" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label>Body</label>
+            <textarea class="form-control" th:field="*{body}" rows="3"></textarea>
         </div>
         <div>
-            <label for="hashtags">Hash Tags</label>
-            <input id="hashtags" class="form-control form-control-sm" name="hashtags" type="text" placeholder="#2kewl4skool">
+            <label >Hash Tags</label>
+            <input th:field="*{hashTags}" class="form-control form-control-sm" type="text" placeholder="#2kewl4skool">
         </div>
         <button class="btn btn-dark">Submit</button>
     </form>
