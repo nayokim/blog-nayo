@@ -2,13 +2,13 @@ package com.nayo.blog.Controllers;
 
 import com.nayo.blog.dao.PostsRepository;
 import com.nayo.blog.dao.UsersRepository;
+import com.nayo.blog.services.EmailService;
 import com.nayo.blog.models.Post;
 import com.nayo.blog.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,10 +16,12 @@ public class PostController {
     //dependency injection
     private PostsRepository postsDao;//dao = data access object
     private UsersRepository usersDao;
+    private EmailService emailService;
 
-    public PostController(PostsRepository postsRepository, UsersRepository usersDao) {
+    public PostController(PostsRepository postsRepository, UsersRepository usersDao, EmailService emailService) {
         this.postsDao = postsRepository;
         this.usersDao = usersDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -50,6 +52,7 @@ public class PostController {
         //save the data in the database.
         postToBeSaved.setUser(currentUser);
         Post savedPost = postsDao.save(postToBeSaved);
+        emailService.prepareAndSend(savedPost, "New Post","A new Post has been created by " + savedPost.getUser());
         return "redirect:/posts";
     }
 

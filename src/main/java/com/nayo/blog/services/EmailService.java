@@ -1,5 +1,6 @@
-package com.nayo.blog.models;
+package com.nayo.blog.services;
 
+import com.nayo.blog.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
