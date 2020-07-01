@@ -34,6 +34,20 @@
         <input type="text" name="term" placeholder="Search term">
         <button class="btn btn-dark">Search</button>
     </form>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <form th:action="@{/login}" th:method="post">
+                    <button class="btn-link btn" style="margin-top: 8px">Login</button>
+                </form>
+            </li>
+            <li>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
 </nav>
 </body>
 

@@ -5,6 +5,7 @@ import com.nayo.blog.dao.UsersRepository;
 import com.nayo.blog.services.EmailService;
 import com.nayo.blog.models.Post;
 import com.nayo.blog.models.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String viewPost(@ModelAttribute Post postToBeSaved) {
-        User currentUser = usersDao.getOne(1L);
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //save the data in the database.
         postToBeSaved.setUser(currentUser);
         Post savedPost = postsDao.save(postToBeSaved);
@@ -67,7 +68,7 @@ public class PostController {
 
     @PostMapping("/posts/{id}/edit")
     public String update(@ModelAttribute Post postToEdit) {
-        User currentUser = usersDao.getOne(1L);
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postToEdit.setUser(currentUser);
 
         //save the changes
