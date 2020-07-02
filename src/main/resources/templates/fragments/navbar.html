@@ -37,14 +37,16 @@
         <input type="text" name="term" placeholder="Search term">
         <button class="btn btn-dark">Search</button>
     </form>
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav ml-auto">
-            <li  class="nav-item" sec:authorize="!isAuthenticated()">
-                <form th:action="@{/login}" th:method="post">
-                    <button class="btn-link btn" style="margin-top: 8px">Login</button>
-                </form>
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link" href="/login">Login</a>
             </li>
-            <li  class="nav-item" sec:authorize="!isAuthenticated()">
+<!--            <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                <span class="d-inline" th:text="${#authentication.principal.username}"/>-->
+<!--            </li>-->
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <div th:text="${#authentication.principal.username}"></div>
                 <form th:action="@{/logout}" th:method="post">
                     <button class="btn-link btn" style="margin-top: 8px">Logout</button>
                 </form>
