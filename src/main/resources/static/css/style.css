@@ -3,3 +3,22 @@ body{
     font-family: 'Bebas Neue', cursive;
     font-family: 'Montserrat', sans-serif;
 }
+
+a.navbar-brand{
+    width:120px;
+    padding:0;
+    margin:0;
+}
+
+#logo{
+    width:50%;
+    height:50%
+}
+
+#search-menu {
+    padding: 5px;
+    width: 260px;
+}
+#search-menu input {
+    width: 200px;
+}
