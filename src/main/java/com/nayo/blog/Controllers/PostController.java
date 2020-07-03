@@ -25,12 +25,14 @@ public class PostController {
         this.emailService = emailService;
     }
 
+
+
     @GetMapping("/posts")
     public String showPosts(Model model) {
         //grabs a list of all the posts in the db
         List<Post> posts = postsDao.findAll();
         model.addAttribute("posts", posts);
-        return "home/index";
+        return "blog/index";
     }
 
     @GetMapping("/posts/{id}")
@@ -87,7 +89,7 @@ public class PostController {
     public String search(Model model, @RequestParam(name = "term") String term) {
         List<Post> posts = postsDao.searchByTitle(term);
         model.addAttribute("posts", posts);
-        return "home/index";
+        return "blog/index";
     }
 
 
