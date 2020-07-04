@@ -1,7 +1,14 @@
+
 body {
-    height: 100vh;
     font-family: 'Bebas Neue', cursive;
     font-family: 'Montserrat', sans-serif;
+}
+
+.flex-wrapper{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between
 }
 
 a.navbar-brand {
@@ -19,8 +26,8 @@ a.navbar-brand {
     height: 50%
 }
 
-#img {
-    height: 50%;
+.card-img-top{
+    height:700px;
 }
 
 #search-menu {

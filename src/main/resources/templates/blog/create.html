@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head('Create a post')">
+    <link href="../css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
     <meta charset="UTF-8">
 </head>
 <body>
 <header th:replace="fragments/navbar :: navbar"></header>
-<div class="container">
+<div class="container flex-wrapper">
     <form th:action="@{/posts/create}" th:method="POST" th:object="${post}">
         <div class="form-group">
             <label>Title</label>
@@ -19,7 +20,7 @@
             <label >Hash Tags</label>
             <input th:field="*{hashTags}" class="form-control form-control-sm" type="text" placeholder="#tags">
         </div>
-        <button class="btn btn-dark mb-1">Submit</button>
+        <button class="btn btn-dark mt-1">Submit</button>
     </form>
 </div>
 

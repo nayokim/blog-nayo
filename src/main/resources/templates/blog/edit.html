@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<header th:replace="fragments/navbar :: navbar"></header>
-<div class="container">
+<header th:replace="fragments/navbar :: navbar">
+    <link href="../css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+</header>
 
+<div class="container flex-wrapper">
     <form th:action="${'/posts/' +post.id+ '/edit'}" th:method="POST" th:object="${post}">
         <label for="title">Title</label>
         <input type="text" th:field="*{title}"/>

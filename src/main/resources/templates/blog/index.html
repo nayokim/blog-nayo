@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head('Nayos Blog!')">
+    <link href="../css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -31,7 +33,8 @@
                             <button type="button" class="btn btn-sm btn-outline-dark">Read More!</button>
                         </a>
                     </div>
-                    <div class="card-footer text-muted ">
+                    <hr>
+                    <div class=" text-muted ">
                         <p th:text="${post.hashTags}"></p>
                     </div>
                 </div>

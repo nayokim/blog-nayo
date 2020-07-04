@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head></head>
 
+<body>
 <div th:fragment="footer">
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="https://mdbootstrap.com/"> this is a footer</a>
-
-
-    <form action="/search">
-        <input type="text" name="term" placeholder="Search term">
-        <button class="btn btn-dark">Search</button>
-    </form>
+    <hr>
+    <div class="footer text-center py-3"><span>2020 : this is a footer</span>
+        <form action="/search">
+            <input type="text" name="term" placeholder="Search term">
+            <button class="btn btn-dark">Search</button>
+        </form>
     </div>
 </div>
+</body>
 </html>
