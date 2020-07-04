@@ -21,6 +21,8 @@ public class Post {
     @OneToOne
     private User user;
 
+    //@JsonManagedReference - add to manytoone relationships
+    //    @JsonBackReference - one to many relationships
     public Post(){
     }
 
