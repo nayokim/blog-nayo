@@ -1,28 +1,33 @@
-body{
+body {
     height: 100vh;
     font-family: 'Bebas Neue', cursive;
     font-family: 'Montserrat', sans-serif;
 }
 
-a.navbar-brand{
-    width:120px;
-    padding:0;
-    margin:0;
+a.navbar-brand {
+    width: 120px;
+    padding: 0;
+    margin: 0;
 }
 
-#search-func{
+#search-func {
     padding-top: 8px;
 }
 
-#logo{
-    width:50%;
-    height:50%
+#logo {
+    width: 70%;
+    height: 50%
+}
+
+#img {
+    height: 50%;
 }
 
 #search-menu {
     padding: 5px;
     width: 260px;
 }
+
 #search-menu input {
     width: 200px;
 }

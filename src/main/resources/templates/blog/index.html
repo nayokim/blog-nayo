@@ -8,18 +8,34 @@
 <header th:replace="fragments/navbar :: navbar"></header>
 
 <div class="container">
-    <div th:each="post : ${posts}" class="card text-center">
-        <div class="card-header">
-            <a th:href="${'/posts/' + post.id}">
-                <h1 th:text="${post.title}"></h1>
-            </a>
-        </div>
-        <div class="card-body">
-            <p th:text="${post.body}" class="card-text">With supporting text below as a natural lead-in to additional
-                content.</p>
-        </div>
-        <div class="card-footer text-muted">
-            <p th:text="${post.hashTags}"></p>
+    <div th:each="post: ${posts}" class="row justify-content-center">
+        <div class="col-10 mb-4">
+            <!-- Card -->
+            <div class="card">
+                <!--Card image-->
+                <div class="view overlay" id="img">
+                    <img class="card-img-top" src="imgs/parkway.jpg"
+                         alt="Card image cap">
+                    <a href="#">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h4 th:text="${post.title}" class="card-title text-center">Card title</h4>
+                    <p th:text="${post.body}" class="card-text text-center">Some quick example text to build on the card
+                        title and
+                        make up the bulk of the
+                        card's content.</p>
+                    <div class="text-center mb-1">
+                        <a th:href="${'/posts/' +post.id}">
+                            <button type="button" class="btn btn-sm btn-outline-dark">Read More!</button>
+                        </a>
+                    </div>
+                    <div class="card-footer text-muted ">
+                        <p th:text="${post.hashTags}"></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -36,5 +52,4 @@
 <div th:replace="fragments/footer :: footer"></div>
 
 </body>
-
 </html>
