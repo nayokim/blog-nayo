@@ -10,6 +10,10 @@ a.navbar-brand{
     margin:0;
 }
 
+#search-func{
+    padding-top: 8px;
+}
+
 #logo{
     width:50%;
     height:50%
