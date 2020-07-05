@@ -6,17 +6,16 @@
 </head>
 
 <body>
-
 <header th:replace="fragments/navbar :: navbar"></header>
+<div class="container flex-wrapper">
 
-<div class="container">
     <div th:each="post: ${posts}" class="row justify-content-center">
         <div class="col-10 mb-4">
             <!-- Card -->
             <div class="card">
                 <!--Card image-->
                 <div class="view overlay" id="img">
-                    <img class="card-img-top" src="imgs/parkway.jpg"
+                    <img class="card-img-top" src="images/parkway.jpg"
                          alt="Card image cap">
                     <a href="#">
                         <div class="mask rgba-white-slight"></div>
@@ -35,7 +34,9 @@
                     </div>
                     <hr>
                     <div class=" text-muted ">
-                        <p th:text="${post.hashTags}"></p>
+                        <a href="">
+                            <p th:text="${post.hashTags}"></p>
+                        </a>
                     </div>
                 </div>
             </div>

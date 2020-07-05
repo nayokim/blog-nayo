@@ -13,5 +13,9 @@ public interface PostsRepository extends JpaRepository<Post, Long> {
             ("from Post as p where p.title like %:term% or p.body like %:term% or p.hashTags like %:term% ")
     List<Post> searchByTitle(@Param("term") String term);
 
+    @Query
+            ("from Post as p where p.hashTags like %:hashtags%")
+    List<Post> searchByHash(@Param("hashtags")String hashtags);
+
 
 }

@@ -2,6 +2,7 @@
 body {
     font-family: 'Bebas Neue', cursive;
     font-family: 'Montserrat', sans-serif;
+
 }
 
 .flex-wrapper{
@@ -29,6 +30,37 @@ a.navbar-brand {
 .card-img-top{
     height:700px;
 }
+
+img,
+.card-img-top {
+    border-radius: 0em;
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-columns {
+        column-count: 5;
+    }
+}
+
+
 
 #search-menu {
     padding: 5px;

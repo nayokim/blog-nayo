@@ -92,6 +92,13 @@ public class PostController {
         return "blog/index";
     }
 
+    @GetMapping("/hashtag")
+    public String hashRep(Model model, @RequestParam(name="hashtags") String hashtags){
+        List<Post> posts = postsDao.searchByHash(hashtags);
+        model.addAttribute("hashtags", hashtags);
+        return"blog/index";
+    }
+
 
 
 }
