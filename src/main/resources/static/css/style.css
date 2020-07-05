@@ -20,6 +20,11 @@ body {
 a {
     color: #b5b7b6;
 }
+
+a:hover{
+    color: #dedbdf;
+}
+
 a.navbar-brand {
     width: 120px;
     padding: 0;
