@@ -12,6 +12,14 @@ body {
     justify-content: space-between
 }
 
+.navbar{
+
+    background:#f7f9f5;
+}
+
+a {
+    color: #b5b7b6;
+}
 a.navbar-brand {
     width: 120px;
     padding: 0;
