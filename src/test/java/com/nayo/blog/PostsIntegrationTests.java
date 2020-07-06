@@ -129,4 +129,25 @@ public class PostsIntegrationTests<UserRepository> {
                 .andExpect(content().string(containsString(existingPost.getTitle())));
     }
 
+    @Test
+    public void testEditPost() throws Exception {
+        // Gets the first post for tests purposes
+        Post existingPost = postsDao.findAll().get(0);
+
+        // Makes a Post request to /posts/{id}/edit and expect a redirection to the post show page
+        this.mvc.perform(
+                post("/posts/" + existingPost.getId() + "/edit").with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        .param("title", "edited title")
+                        .param("body", "edited description"))
+                .andExpect(status().is3xxRedirection());
+
+        // Makes a GET request to /ads/{id} and expect a redirection to the Ad show page
+        this.mvc.perform(get("/posts/" + existingPost.getId()))
+                .andExpect(status().isOk())
+                // Test the dynamic content of the page
+                .andExpect(content().string(containsString("edited title")))
+                .andExpect(content().string(containsString("edited description")));
+    }
+
 }
