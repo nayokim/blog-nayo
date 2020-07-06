@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/head :: head('Nayos Blog!')">
     <link href="../css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
 
@@ -9,6 +9,18 @@
 <header th:replace="fragments/navbar :: navbar"></header>
 <div class="container flex-wrapper">
 
+
+<!--    <div th:each="post: ${posts}">-->
+<!--        <h2>Title: <span th:text="${post.title}"></span></h2>-->
+<!--        <h2>Body: <span th:text="${post.body}"></span></h2>-->
+<!--        <h5>User: <span th:text="${post.user.username}"></span></h5>-->
+<!--        <h5>Email: <span th:text="${post.user.email}"></span></h5>-->
+<!--        <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--            <form th:action="@{'/posts/'+post.id+'/disable'}">-->
+<!--                <button>Disable</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
     <div th:each="post: ${posts}" class="row justify-content-center">
         <div class="col-10 mb-4">
             <!-- Card -->
