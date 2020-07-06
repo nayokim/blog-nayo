@@ -3,6 +3,7 @@ package com.nayo.blog;
 import com.nayo.blog.BlogApplication;
 import com.nayo.blog.dao.PostsRepository;
 import com.nayo.blog.dao.UsersRepository;
+import com.nayo.blog.models.Post;
 import com.nayo.blog.models.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,11 +19,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.servlet.http.HttpSession;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 //classes = BlogApplication.class : needs to match your blog name
@@ -84,6 +86,8 @@ public class PostsIntegrationTests<UserRepository> {
 
 
     // For this test we want to make a HTTP POST request
+    //CRUD - Create
+
     @Test
     public void testCreatePost() throws Exception {
         // Makes a Post request to /posts/create and expect a redirection to the post
@@ -96,5 +100,33 @@ public class PostsIntegrationTests<UserRepository> {
                 .andExpect(status().is3xxRedirection());
     }
 
+    //Check if posts index ("/posts") and show ("posts/{id}") will render correctly
+    //CRUD - Read
+
+    @Test
+    public void testShowPost() throws Exception {
+
+        Post existingPost = postsDao.findAll().get(0);
+
+        // Makes a Get request to /posts/{id} and expect a redirection to the post show page
+        this.mvc.perform(get("/posts/" + existingPost.getId()))
+                .andExpect(status().isOk())
+                // Test the dynamic content of the page
+                .andExpect(content().string(containsString(existingPost.getBody())));
+    }
+
+    @Test
+    public void testPostsIndex() throws Exception {
+        Post existingPost = postsDao.findAll().get(0);
+
+        // Makes a Get request to /postss and verifies that we get some of the static text of the ads/index.html template and at least the title from the first post is present in the template.
+        this.mvc.perform(get("/posts"))
+                .andExpect(status().isOk())
+                // Test the static content of the page
+                //containsString("")  - looking for  content on the page
+                .andExpect(content().string(containsString("test")))
+                // Test the dynamic content of the page
+                .andExpect(content().string(containsString(existingPost.getTitle())));
+    }
 
 }
