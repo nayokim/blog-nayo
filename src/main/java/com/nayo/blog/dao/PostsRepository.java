@@ -18,4 +18,5 @@ public interface PostsRepository extends JpaRepository<Post, Long> {
     List<Post> searchByHash(@Param("hashtags")String hashtags);
 
 
+    Post findByTitle(String ad_to_be_deleted);
 }
