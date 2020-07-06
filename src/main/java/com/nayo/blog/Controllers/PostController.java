@@ -26,7 +26,6 @@ public class PostController {
     }
 
 
-
     @GetMapping("/posts")
     public String showPosts(Model model) {
         //grabs a list of all the posts in the db
@@ -55,7 +54,7 @@ public class PostController {
         //save the data in the database.
         postToBeSaved.setUser(currentUser);
         Post savedPost = postsDao.save(postToBeSaved);
-        emailService.prepareAndSend(savedPost, "New Post","A new Post has been created by " + savedPost.getUser());
+        emailService.prepareAndSend(savedPost, "New Post", "A new Post has been created by " + savedPost.getUser());
         return "redirect:/posts";
     }
 
@@ -81,8 +80,19 @@ public class PostController {
 
     @PostMapping("/posts/{id}/delete")
     public String destroy(@PathVariable long id) {
-        postsDao.deleteById(id);
-        return "redirect:/posts";
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = usersDao.findByUsername(currentUser.getUsername());
+
+        if (user.getId() == currentUser.getId()) {
+            System.out.println("user id= " + user.getId());
+            System.out.println("current id: " + currentUser.getId());
+            System.out.println("post id" + id);
+            System.out.println("not same user");
+            return "redirect:/posts";
+        } else {
+            postsDao.deleteById(id);
+            return "redirect:/posts";
+        }
     }
 
     @GetMapping("/search")
@@ -93,12 +103,11 @@ public class PostController {
     }
 
     @GetMapping("/hashtag")
-    public String hashRep(Model model, @RequestParam(name="hashtags") String hashtags){
+    public String hashRep(Model model, @RequestParam(name = "hashtags") String hashtags) {
         List<Post> posts = postsDao.searchByHash(hashtags);
         model.addAttribute("hashtags", hashtags);
-        return"blog/index";
+        return "blog/index";
     }
-
 
 
 }
