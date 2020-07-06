@@ -83,16 +83,11 @@ public class PostController {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = usersDao.findByUsername(currentUser.getUsername());
 
-        if (user.getId() == currentUser.getId()) {
-            System.out.println("user id= " + user.getId());
-            System.out.println("current id: " + currentUser.getId());
-            System.out.println("post id" + id);
-            System.out.println("not same user");
-            return "redirect:/posts";
-        } else {
-            postsDao.deleteById(id);
-            return "redirect:/posts";
-        }
+        System.out.println("user id= " + user.getId());
+        System.out.println("current id: " + currentUser.getId());
+        System.out.println("post id" + id);
+        postsDao.deleteById(id);
+        return "redirect:/posts";
     }
 
     @GetMapping("/search")
