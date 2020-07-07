@@ -5,6 +5,7 @@ import com.nayo.blog.dao.UsersRepository;
 import com.nayo.blog.services.EmailService;
 import com.nayo.blog.models.Post;
 import com.nayo.blog.models.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,12 @@ import java.util.List;
 
 @Controller
 public class PostController {
+
+    //filestack
+    @Value("${filestack.api.key}")
+    private String apiKey;
+
+
     //dependency injection
     private PostsRepository postsDao;//dao = data access object
     private UsersRepository usersDao;
@@ -104,6 +111,12 @@ public class PostController {
         List<Post> posts = postsDao.searchByHash(hashtags);
         model.addAttribute("hashtags", hashtags);
         return "blog/index";
+    }
+
+    @GetMapping("/impossible")
+    public String cantbeThisEasy(Model model) {
+        model.addAttribute("apiKey", apiKey);
+        return "blog/impossible";
     }
 
 
