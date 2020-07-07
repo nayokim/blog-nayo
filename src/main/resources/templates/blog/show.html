@@ -22,21 +22,19 @@
                     <p th:text="${post.hashTags}"></p>
                 </a>
             </div>
-
-            <div th:if="${post.getUser().getId() == userId}" class="d-flex">
-                <form th:action="@{|/posts/${post.id}/edit|}" th:method="get" th:object="${post}">
-                    <input type="hidden" name="id" th:value="${post.getId()}">
-                    <button type="button" class="btn btn-outline-info">Edit</button>
-                </form>
-                <form  class="ml-1" th:action="${'/posts/' + post.id + '/delete'}" th:method="post" th:object="${post}">
-                    <input type="hidden" name="postId" th:value="${post.getId()}">
-                    <button type="button" class="btn btn-outline-danger">Delete</button>
-                </form>
-            </div>
         </div>
 
+        <div th:if="${post.getUser().getId() == userId}" class="d-flex">
+            <form th:action="@{|/posts/${post.id}/edit|}" th:method="get" th:object="${post}">
+                <input type="hidden" name="id" th:value="${post.getId()}">
+                <button class="btn btn-outline-info"> Edit</button>
+            </form>
+            <form class="ml-1" th:action="${'/posts/' + post.id + '/delete'}" th:method="post" th:object="${post}">
+                <input type="hidden" name="postId" th:value="${post.getId()}">
+                <button class="btn btn-outline-danger"> delete</button>
+            </form>
+        </div>
     </div>
-
 </div>
 
 

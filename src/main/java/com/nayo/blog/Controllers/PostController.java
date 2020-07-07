@@ -67,13 +67,6 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    @GetMapping("/posts/{id}/details")
-    public String viewDetails(@PathVariable long id, Model model) {
-        model.addAttribute("post", postsDao.findById(id));
-        User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("userId", u.getId());
-        return "posts/show";
-    }
 
     @GetMapping("/posts/{id}/edit")
     public String showEditForm(Model model, @PathVariable long id) {
@@ -87,7 +80,6 @@ public class PostController {
     public String update(@ModelAttribute Post postToEdit) {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postToEdit.setUser(currentUser);
-
         //save the changes
         postsDao.save(postToEdit);// update posts set title =? where id=?
         return "redirect:/posts/" + postToEdit.getId();
