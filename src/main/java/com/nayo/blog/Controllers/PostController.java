@@ -61,6 +61,7 @@ public class PostController {
     @GetMapping("/posts/create")
     public String showForm(Model viewModel) {
         viewModel.addAttribute("post", new Post());
+        viewModel.addAttribute("apiKey", apiKey);
         return "blog/create";
     }
 

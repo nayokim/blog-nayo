@@ -12,11 +12,16 @@ public class Post {
     @Column(nullable = false, length = 200)
     private String title;
 
+    @Column(columnDefinition="TEXT")
+    private String img;
+
     @Column(nullable = false)
     private String body;
 
     @Column(nullable=true)
     private String hashTags;
+
+
 
 //    @OneToOne
 //    private User user;
@@ -28,24 +33,27 @@ public class Post {
     public Post(){
     }
 
-    public Post(String title, String body, String hashTags){
+    public Post(String title, String body, String img, String hashTags){
         this.title = title;
         this.body = body;
+        this.img = img;
         this.hashTags = hashTags;
     }
 
-    public Post(String title, String body, String hashTags, User user){
+    public Post(String title, String body, String img,  String hashTags, User user){
         this.title = title;
         this.body = body;
+        this.img = img;
         this.hashTags = hashTags;
         this.user= user;
     }
 
     //this constructor is used with the edit post method
-    public Post(long id, String title, String body, User user, String hashTag) {
+    public Post(long id, String title, String body, String img,  User user, String hashTag) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.img = img;
         this.user= user;
         this.hashTags = hashTags;
     }
@@ -91,4 +99,11 @@ public class Post {
     }
 
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 }
