@@ -34,11 +34,20 @@ public class PostController {
         return "blog/index";
     }
 
+//    @GetMapping("/posts/{id}")
+//    public String onePost(@PathVariable long id, Model model) {
+//        Post postToView = postsDao.getOne(id);
+//        //"post" is what is in the view and postToView is what is being passed
+//        model.addAttribute("post", postToView);
+//        return "blog/show";
+//    }
+
+    //    SHOW POST DETAILS
     @GetMapping("/posts/{id}")
-    public String onePost(@PathVariable long id, Model model) {
-        Post postToView = postsDao.getOne(id);
-        //"post" is what is in the view and postToView is what is being passed
-        model.addAttribute("post", postToView);
+    public String viewOnePost(@PathVariable long id, Model model) {
+        model.addAttribute("post", postsDao.findById(id));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("userId", user.getId());
         return "blog/show";
     }
 
@@ -58,6 +67,13 @@ public class PostController {
         return "redirect:/posts";
     }
 
+    @GetMapping("/posts/{id}/details")
+    public String viewDetails(@PathVariable long id, Model model) {
+        model.addAttribute("post", postsDao.findById(id));
+        User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("userId", u.getId());
+        return "posts/show";
+    }
 
     @GetMapping("/posts/{id}/edit")
     public String showEditForm(Model model, @PathVariable long id) {
@@ -80,12 +96,6 @@ public class PostController {
 
     @PostMapping("/posts/{id}/delete")
     public String destroy(@PathVariable long id) {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = usersDao.findByUsername(currentUser.getUsername());
-
-        System.out.println("user id= " + user.getId());
-        System.out.println("current id: " + currentUser.getId());
-        System.out.println("post id" + id);
         postsDao.deleteById(id);
         return "redirect:/posts";
     }

@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface PostsRepository extends JpaRepository<Post, Long> {
 
+
+    Post findById(long id);
+
     @Query
             ("from Post as p where p.title like %:term% or p.body like %:term% or p.hashTags like %:term% ")
     List<Post> searchByTitle(@Param("term") String term);

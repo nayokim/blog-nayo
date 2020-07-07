@@ -18,7 +18,11 @@ public class Post {
     @Column(nullable=true)
     private String hashTags;
 
-    @OneToOne
+//    @OneToOne
+//    private User user;
+
+    @ManyToOne
+    @JoinColumn (name = "user_id")
     private User user;
 
     public Post(){
